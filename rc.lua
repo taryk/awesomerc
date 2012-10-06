@@ -514,7 +514,16 @@ globalkeys = awful.util.table.join(
                   awful.util.eval, nil,
                   awful.util.getdir("cache") .. "/history_eval")
               end),
-
+   awful.key({ modkey }, "g",
+              function ()
+                  awful.prompt.run({ prompt = "Go to Nth: " },
+                  promptbox[mouse.screen].widget,
+                  function (n)
+                     local c = awful.tag.selected():clients()[tonumber(n)]
+                     client.focus = c
+                     c:raise()
+                  end)
+              end),
    -- Media keys
    -- awful.key({ }, "XF86AudioNext",  musicwidget:command_next_track()),
    -- awful.key({ }, "XF86AudioPrev",  musicwidget:command_prev_track()), 
