@@ -736,13 +736,15 @@ do
     "thunderbird",
     "emacs24",
     "clementine",
-    "psi",
-    -- "xxkb",
-    "ktorrent",
-    "xscreensaver -nosplash &",
+    "psi-plus",
+    "xscreensaver -no-splash",
     "parcellite",
-    --"skype",
-    --and so on...
+    "nm-applet",
+    -- "xxkb",
+    -- "gmpc",
+    -- "ktorrent",
+    -- "skype",
+    -- and so on...
   }
 
   for _,i in pairs(cmds) do
