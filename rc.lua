@@ -725,7 +725,8 @@ mytimer:start()
 
 --{{{ Autostart programs
 function run_once(prg)
-  awful.util.spawn_with_shell("pgrep -u $USER -x " .. prg .. " || (" .. prg .. ")")
+  cmd = split(prg, " ")
+  awful.util.spawn_with_shell("pgrep -u $USER -x " .. cmd[1] .. " || (" .. prg .. ")")
 end
 
 do
