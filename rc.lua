@@ -21,11 +21,11 @@ loadfile(awful.util.getdir("config").."/orglendar.lua")()
 
 -- {{{ Variable definitions
 -- Themes define colours, icons, and wallpapers
-beautiful.init("/home/taryk/.config/awesome/theme.lua")
+beautiful.init("/home/taras/.config/awesome/theme.lua")
 
 -- This is used later as the default terminal and editor to run.
 terminal = "urxvt"
-editor = os.getenv("EDITOR") or "emacs24"
+editor = os.getenv("EDITOR") or "emacs"
 editor_cmd = terminal .. " -e " .. editor
 
 -- Default modkey.
@@ -76,20 +76,29 @@ layouts =
 
 -- {{{ Tags
 -- Define a tag table which will hold all screen tags.
-tags = {
-  names  = { "1:skype", "2:email", "3:www", "4:emacs", "5:term", "6:im", 7, "8:audio", "9:video" },
-  layout = { layouts[1], layouts[1], layouts[1], layouts[1], layouts[3],
-             layouts[1], layouts[1], layouts[1], layouts[1]
-}}
+tagn = {
+
+   { names  = { "1:skype", "2:email", "3:emacs", "4:term", "5:im", "6:www", "7:audio", "8:" },
+     layout = { layouts[1], layouts[1], layouts[1], layouts[3], layouts[1],
+                layouts[1], layouts[1], layouts[1], layouts[1] } },
+
+   { names  = { "1:term", "2:www", "3:", "4:", "5:", "6:", "7:", "8:", "9:" },
+     layout = { layouts[3], layouts[1], layouts[1], layouts[1], layouts[1],
+                layouts[1], layouts[1], layouts[1], layouts[1] } }
+
+}
+
+tags = {}
+
 for s = 1, screen.count() do
     -- Each screen has its own tag table.
-    tags[s] = awful.tag(tags.names, s, tags.layout)
+   tags[s] = awful.tag(tagn[s].names, s, tagn[s].layout)
     --tag.add_signal("property::selected", function(t)
 end
 
 --    screen[1]:add_signal("tag::history::update", function()
 --       tagname = awful.tag.selected(1).name
---       os.execute("mkdir /home/taryk/tmp/testdir")
+--       os.execute("mkdir /home/taras/tmp/testdir")
 --    end)
 -- }}}
 
@@ -140,7 +149,7 @@ mygmail = widget({ type = "textbox" })
 gmail_t = awful.tooltip({ objects = { mygmail },})
 
 mygmailimg = widget({ type = "imagebox" })
-mygmailimg.image = image("/home/taryk/.config/awesome/icons/gmail_icon_18x.png")
+mygmailimg.image = image("/home/taras/.config/awesome/icons/gmail_icon_18x.png")
 
 vicious.register(mygmail, vicious.widgets.gmail,
                 function (widget, args)
@@ -263,10 +272,10 @@ vicious.register(netwidget, vicious.widgets.net,
 -- Create a textclock widget
 mytextclock = awful.widget.textclock({ align = "right" }, " <b>%A %Y.%m.%d %H:%M:%S</b> ", 1)
 
-orglendar.files = { "/home/taryk/Documents/org/toread.org",
-                    "/home/taryk/Documents/org/2012.org",
-                    "/home/taryk/Documents/org/home.org",
-                    "/home/taryk/Documents/org/development.org" }    -- Specify here all files you want to be parsed, separated by
+orglendar.files = { "/home/taras/Documents/org/toread.org",
+                    "/home/taras/Documents/org/2012.org",
+                    "/home/taras/Documents/org/home.org",
+                    "/home/taras/Documents/org/development.org" }    -- Specify here all files you want to be parsed, separated by
 orglendar.register(mytextclock)
 
 -- -- {{{ PROCESSOR
@@ -277,7 +286,7 @@ cpu_total = { 0, 0, 0, 0, 0, 0, 0, 0 }
 cpu_active = { 0, 0, 0, 0, 0, 0, 0, 0 }
 cpugraphwidget = { 0, 0, 0, 0, 0, 0, 0, 0 }
 
-for cpun = 1, 8 do
+for cpun = 1, 2 do
   cpugraphwidget[cpun] = awful.widget.graph()
   cpugraphwidget[cpun]:set_width(60)
   cpugraphwidget[cpun]:set_height(18)
@@ -428,17 +437,6 @@ for s = 1, screen.count() do
          fswidget,
          layout = awful.widget.layout.horizontal.leftright
        },
-       cpugraphwidget[8].widget,
-       pspacer,
-       cpugraphwidget[7].widget,
-       pspacer,
-       cpugraphwidget[6].widget,
-       pspacer,
-       cpugraphwidget[5].widget,
-       pspacer,
-       cpugraphwidget[4].widget,
-       pspacer,
-       cpugraphwidget[3].widget,
        pspacer,
        cpugraphwidget[2].widget,
        pspacer,
@@ -514,6 +512,7 @@ globalkeys = awful.util.table.join(
                   awful.util.eval, nil,
                   awful.util.getdir("cache") .. "/history_eval")
               end),
+
    awful.key({ modkey }, "g",
               function ()
                   awful.prompt.run({ prompt = "Go to Nth: " },
@@ -524,6 +523,7 @@ globalkeys = awful.util.table.join(
                      c:raise()
                   end)
               end),
+
    -- Media keys
    -- awful.key({ }, "XF86AudioNext",  musicwidget:command_next_track()),
    -- awful.key({ }, "XF86AudioPrev",  musicwidget:command_prev_track()), 
@@ -532,19 +532,19 @@ globalkeys = awful.util.table.join(
    awful.key({ }, "XF86AudioRaiseVolume", function () 
                                              volumecfg.up()
                                              --awful.util.spawn("amixer set Master 2%+") 
-                                             --awful.util.spawn("/home/taryk/bin/mixer_notify inc")
+                                             --awful.util.spawn("/home/taras/bin/mixer_notify inc")
                                           end),
    awful.key({ }, "XF86AudioLowerVolume", function () 
                                              volumecfg.down()
                                              --awful.util.spawn("amixer set Master 2%-") 
-                                             --awful.util.spawn("/home/taryk/bin/mixer_notify dec")
+                                             --awful.util.spawn("/home/taras/bin/mixer_notify dec")
                                           end),
    awful.key({ }, "XF86AudioMute", function () 
                                       volumecfg.toggle()
                                              --awful.util.spawn("amixer sset Master 0") 
-                                             --awful.util.spawn("/home/taryk/bin/mixer_notify mute")
+                                             --awful.util.spawn("/home/taras/bin/mixer_notify mute")
                                    end)
-   -- awful.key({ }, "Caps_Lock", function ()   kbdcfg.switch() end)
+   -- nnawful.key({ }, "Caps_Lock", function ()   kbdcfg.switch() end)
 )
 
 clientkeys = awful.util.table.join(
@@ -636,31 +636,31 @@ awful.rules.rules = {
     { rule = { class = "Gimp" },
       properties = { floating = true } },
     { rule = { class = "Rxvt" },
-      properties = { floating = false, tag = tags[1][5] } },
+      properties = { floating = false, tag = tags[2][1] } },
     { rule = { class = "Thunderbird" },
       properties = { floating = false, tag = tags[1][2] } },
     { rule = { class = "Chromium" },
-      properties = { floating = false, tag = tags[1][3] } },
+      properties = { floating = false, tag = tags[1][6] } },
+    { rule = { class = "Firefox" },
+      properties = { floating = false, tag = tags[2][2] } },
     { rule = { class = "Skype" },
       properties = { floating = true,  tag = tags[1][1] } },
     { rule = { class = "Emacs" },
-      properties = { floating = false, tag = tags[1][4] } },
+      properties = { floating = false, tag = tags[1][3] } },
     { rule = { class = "Clementine" },
-      properties = { floating = false, tag = tags[1][8] } },
+      properties = { floating = false, tag = tags[1][7] } },
     { rule = { class = "Gmpc" },
-      properties = { floating = false, tag = tags[1][8] } },
+      properties = { floating = false, tag = tags[1][7] } },
     { rule = { class = "Kopete" },
-      properties = { floating = true,  tag = tags[1][6] } },
+      properties = { floating = true,  tag = tags[1][5] } },
     { rule = { class = "psi" },
-      properties = { floating = true,  tag = tags[1][1] } },
+      properties = { floating = true,  tag = tags[1][5] } },
+    { rule = { class = "qwit" },
+      properties = { floating = true,  tag = tags[1][6] } },
     { rule = { class = "VirtualBox" },
       properties = { floating = true,  tag = tags[1][8] } },
     { rule = { class = "Geeqie" },
       properties = { floating = false, tag = tags[1][7] } },
-    { rule = { class = "Okular" },
-      properties = { floating = false, tag = tags[1][6] } },
-    { rule = { class = "Evince" },
-      properties = { floating = false, tag = tags[1][6] } },
     { rule = { class = "Eclipse" },
       properties = { floating = false, tag = tags[1][4] } },
 --    { rule = { class = "Gqview" },
@@ -733,6 +733,7 @@ do
   local cmds = 
   { 
     "urxvt",
+    "firefox",
     "chromium-browser",
     "thunderbird",
     "emacs24",
@@ -740,12 +741,13 @@ do
     "psi-plus",
     "xscreensaver -no-splash",
     "parcellite",
+    "skype",
     "nm-applet",
-    -- "xxkb",
+    "wuala",
     -- "gmpc",
+    -- "xxkb",
     -- "ktorrent",
-    -- "skype",
-    -- and so on...
+    --and so on...
   }
 
   for _,i in pairs(cmds) do
