@@ -741,6 +741,8 @@ do
     "xscreensaver -no-splash",
     "parcellite",
     "nm-applet",
+    "dropbox start",
+    -- "wuala",
     -- "xxkb",
     -- "gmpc",
     -- "ktorrent",
