@@ -732,13 +732,13 @@ end
 do
   local cmds = 
   { 
-    "urxvt",
-    "chromium-browser",
-    "thunderbird",
-    "emacs24",
-    "clementine",
-    "psi-plus",
-    "xscreensaver -no-splash",
+    -- "urxvt",
+    -- "chromium-browser",
+    -- "thunderbird",
+    -- "emacs24",
+    -- "clementine",
+    -- "psi-plus",
+    -- "xscreensaver -no-splash",
     "parcellite",
     "nm-applet",
     "dropbox start",
