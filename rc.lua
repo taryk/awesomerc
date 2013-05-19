@@ -273,11 +273,11 @@ orglendar.register(mytextclock)
 -- -- cpu graph
 
 -- CPU usage
-cpu_total = { 0, 0, 0, 0, 0, 0, 0, 0 }
-cpu_active = { 0, 0, 0, 0, 0, 0, 0, 0 }
-cpugraphwidget = { 0, 0, 0, 0, 0, 0, 0, 0 }
+cpu_total = { 0, 0 }
+cpu_active = { 0, 0 }
+cpugraphwidget = { 0, 0 }
 
-for cpun = 1, 8 do
+for cpun = 1, 2 do
   cpugraphwidget[cpun] = awful.widget.graph()
   cpugraphwidget[cpun]:set_width(60)
   cpugraphwidget[cpun]:set_height(18)
@@ -428,18 +428,6 @@ for s = 1, screen.count() do
          fswidget,
          layout = awful.widget.layout.horizontal.leftright
        },
-       cpugraphwidget[8].widget,
-       pspacer,
-       cpugraphwidget[7].widget,
-       pspacer,
-       cpugraphwidget[6].widget,
-       pspacer,
-       cpugraphwidget[5].widget,
-       pspacer,
-       cpugraphwidget[4].widget,
-       pspacer,
-       cpugraphwidget[3].widget,
-       pspacer,
        cpugraphwidget[2].widget,
        pspacer,
        cpugraphwidget[1].widget,
