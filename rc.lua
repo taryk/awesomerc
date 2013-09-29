@@ -17,6 +17,7 @@ require("debian.menu")
 --require('orglendar')
 loadfile(awful.util.getdir("config").."/functions.lua")()
 loadfile(awful.util.getdir("config").."/orglendar.lua")()
+loadfile(awful.util.getdir("config").."/mygmail.lua")()
 --require('org-awesome')
 
 -- {{{ Variable definitions
@@ -136,19 +137,18 @@ pseparator.text = "|"
 
 
 -- gmail widget and tooltip
-mygmail = widget({ type = "textbox" })
-gmail_t = awful.tooltip({ objects = { mygmail },})
+mygmail_widget = widget({ type = "textbox" })
+gmail_t = awful.tooltip({ objects = { mygmail_widget },})
 
-mygmailimg = widget({ type = "imagebox" })
-mygmailimg.image = image("/home/taryk/.config/awesome/icons/gmail_icon_18x.png")
+mygmail_img = widget({ type = "imagebox" })
+mygmail_img.image = image("/home/taryk/.config/awesome/icons/gmail_icon_18x.png")
 
-vicious.register(mygmail, vicious.widgets.gmail,
+vicious.register(mygmail_widget, mygmail,
                 function (widget, args)
-                    gmail_t:set_text(args["{subject}"])
-                    gmail_t:add_to_object(mygmailimg)
-                    return args["{count}"]
-                 end, 60) 
-
+                    gmail_t:set_text(args["tooltip"])
+                    gmail_t:add_to_object(mygmail_img)
+                    return args["count"]
+                 end, 60)
 
 -- RAM usage widget
 memwidget = awful.widget.progressbar()
@@ -401,10 +401,10 @@ for s = 1, screen.count() do
         pseparator, 
         pspacer,
 
-        mygmail,
+        mygmail_widget,
         pspacer,
 
-        mygmailimg,
+        mygmail_img,
         pspacer,
         pseparator,
         pspacer,
