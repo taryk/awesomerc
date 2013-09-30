@@ -8,7 +8,7 @@ use IO::File;
 use DateTime;
 use Encode qw(decode);
 
-my $home = '/home/taryk';
+my $home = '/home/taras';
 my $conf = do "$home/.config/awesome/perl/mailchecker.conf";
 my %mail;
 
