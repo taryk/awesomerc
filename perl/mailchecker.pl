@@ -3,7 +3,7 @@
 use common::sense;
 
 use Mail::IMAPClient;
-use HTML::Entities;
+use HTML::Escape qw(escape_html);
 use IO::File;
 use DateTime;
 use Encode qw(decode);
@@ -31,14 +31,14 @@ sub template {
     while (my ($email, $details) = each %{ $mail_data->{accounts} }) {
         $output
             .= sprintf "<span weight=\"bold\">%s</span> (%s)\n\n",
-            encode_entities($email), $details->{unseen_count};
+            escape_html($email), $details->{unseen_count};
         next if !$details->{unseen_messages};
         for my $message (@{ $details->{unseen_messages} }) {
             $output
                 .= sprintf "<span weight=\"bold\">From</span>: %s, "
                 . "<span weight=\"bold\">Subject</span>: %s\n",
-                encode_entities(decode('MIME-Header', $message->{From})),
-                encode_entities(decode('MIME-Header', $message->{Subject}));
+                escape_html(decode('MIME-Header', $message->{From})),
+                escape_html(decode('MIME-Header', $message->{Subject}));
         }
         $output .= "\n";
     }
