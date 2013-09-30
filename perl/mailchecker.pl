@@ -12,11 +12,13 @@ my $home = '/home/taryk';
 my $conf = do "$home/.config/awesome/perl/mailchecker.conf";
 my %mail;
 
+$,=' ';
+
 my $logger = IO::File->new(">>$conf->{debug_log}")
     or die "Can't open $conf->{debug_log}\n";
 
 sub log_die {
-    say $logger '[' . DateTime->now . '] ', $$, @_;
+    say $logger '[' . DateTime->now . ']', $$, @_;
     die @_;
 }
 
