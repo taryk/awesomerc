@@ -84,6 +84,7 @@ for (@{ $conf->{accounts} }) {
 }
 
 my $output_file = IO::File->new(">$conf->{output_file}");
+$output_file->binmode(":utf8");
 print $output_file template(\%mail);
 
 $output_file->close()
