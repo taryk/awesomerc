@@ -640,7 +640,7 @@ awful.rules.rules = {
     { rule = { class = "Thunderbird" },
       properties = { floating = false, tag = tags[1][2] } },
     { rule = { class = "Chromium" },
-      properties = { floating = false, tag = tags[1][6] } },
+      properties = { floating = false, tag = tags[2][2] } },
     { rule = { class = "Firefox" },
       properties = { floating = false, tag = tags[2][2] } },
     { rule = { class = "Skype" },
@@ -661,19 +661,12 @@ awful.rules.rules = {
       properties = { floating = true,  tag = tags[1][8] } },
     { rule = { class = "Geeqie" },
       properties = { floating = false, tag = tags[1][7] } },
+    { rule = { class = "Eclipse" },
+      properties = { floating = false, tag = tags[1][4] } },
     { rule = { class = "Okular" },
       properties = { floating = false, tag = tags[1][6] } },
     { rule = { class = "Evince" },
       properties = { floating = false, tag = tags[1][6] } },
-    { rule = { class = "Eclipse" },
-      properties = { floating = false, tag = tags[1][4] } },
---    { rule = { class = "Gqview" },
---      properties = { floating = false, tag = tags[1][7] } },
---    { rule = { class = "Gqview" },
---      properties = { floating = true, tag = tags[1][7] } },
-    -- Set Firefox to always map on tags number 2 of screen 1.
-    -- { rule = { class = "Firefox" },
-    --   properties = { tag = tags[1][2] } },
 }
 -- }}}
 
