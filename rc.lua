@@ -264,8 +264,8 @@ netwidget_t = awful.tooltip({ objects = { netwidget.widget },})
 -- Register network widget
 vicious.register(netwidget, vicious.widgets.net,
                     function (widget, args)
-                        netwidget_t:set_text("Network download: " .. args["{eth0 down_mb}"] .. "mb/s")
-                        return args["{eth0 down_mb}"]
+                        netwidget_t:set_text("Network download: " .. args["{eth1 down_mb}"] .. "mb/s")
+                        return args["{eth1 down_mb}"]
                     end)
 
 
