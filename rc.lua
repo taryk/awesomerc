@@ -17,6 +17,7 @@ require("debian.menu")
 --require('orglendar')
 loadfile(awful.util.getdir("config").."/functions.lua")()
 loadfile(awful.util.getdir("config").."/orglendar.lua")()
+loadfile(awful.util.getdir("config").."/mygmail.lua")()
 --require('org-awesome')
 
 -- {{{ Variable definitions
@@ -145,19 +146,18 @@ pseparator.text = "|"
 
 
 -- gmail widget and tooltip
-mygmail = widget({ type = "textbox" })
-gmail_t = awful.tooltip({ objects = { mygmail },})
+mygmail_widget = widget({ type = "textbox" })
+gmail_t = awful.tooltip({ objects = { mygmail_widget },})
 
-mygmailimg = widget({ type = "imagebox" })
-mygmailimg.image = image("/home/taras/.config/awesome/icons/gmail_icon_18x.png")
+mygmail_img = widget({ type = "imagebox" })
+mygmail_img.image = image("/home/taras/.config/awesome/icons/gmail_icon_18x.png")
 
-vicious.register(mygmail, vicious.widgets.gmail,
+vicious.register(mygmail_widget, mygmail,
                 function (widget, args)
-                    gmail_t:set_text(args["{subject}"])
-                    gmail_t:add_to_object(mygmailimg)
-                    return args["{count}"]
-                 end, 60) 
-
+                    gmail_t:set_text(args["tooltip"])
+                    gmail_t:add_to_object(mygmail_img)
+                    return args["count"]
+                 end, 60)
 
 -- RAM usage widget
 memwidget = awful.widget.progressbar()
@@ -410,10 +410,10 @@ for s = 1, screen.count() do
         pseparator, 
         pspacer,
 
-        mygmail,
+        mygmail_widget,
         pspacer,
 
-        mygmailimg,
+        mygmail_img,
         pspacer,
         pseparator,
         pspacer,
@@ -544,7 +544,7 @@ globalkeys = awful.util.table.join(
                                              --awful.util.spawn("amixer sset Master 0") 
                                              --awful.util.spawn("/home/taras/bin/mixer_notify mute")
                                    end)
-   -- nnawful.key({ }, "Caps_Lock", function ()   kbdcfg.switch() end)
+   -- awful.key({ }, "Caps_Lock", function ()   kbdcfg.switch() end)
 )
 
 clientkeys = awful.util.table.join(
@@ -661,6 +661,10 @@ awful.rules.rules = {
       properties = { floating = true,  tag = tags[1][8] } },
     { rule = { class = "Geeqie" },
       properties = { floating = false, tag = tags[1][7] } },
+    { rule = { class = "Okular" },
+      properties = { floating = false, tag = tags[1][6] } },
+    { rule = { class = "Evince" },
+      properties = { floating = false, tag = tags[1][6] } },
     { rule = { class = "Eclipse" },
       properties = { floating = false, tag = tags[1][4] } },
 --    { rule = { class = "Gqview" },
@@ -733,7 +737,6 @@ do
   local cmds = 
   { 
     "urxvt",
-    "firefox",
     "chromium-browser",
     "thunderbird",
     "emacs24",
@@ -743,9 +746,10 @@ do
     "parcellite",
     "skype",
     "nm-applet",
-    "wuala",
-    -- "gmpc",
+    "dropbox start",
+    -- "wuala",
     -- "xxkb",
+    -- "gmpc",
     -- "ktorrent",
     --and so on...
   }
