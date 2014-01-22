@@ -7,6 +7,7 @@ use HTML::Escape qw(escape_html);
 use IO::File;
 use DateTime;
 use Encode qw(decode);
+use Encode::Guess;
 
 my $home = '/home/taryk';
 my $conf = do "$home/.config/awesome/perl/mailchecker.conf";
@@ -34,11 +35,25 @@ sub template {
             escape_html($email), $details->{unseen_count};
         next if !$details->{unseen_messages};
         for my $message (@{ $details->{unseen_messages} }) {
+            my $encoding;
+            if ($message->{Subject} =~ /^=\?[^\?]+\?[BQ]\?/i) {
+                $encoding = 'MIME-Header';
+            } elsif ($message->{Charset}) {
+                $encoding = lc $message->{Charset};
+            } else {
+                my $enc = guess_encoding($message->{Subject},
+                    qw(koi8-r koi8-u cp1251 ascii utf8 cp866));
+                $encoding = $enc->name if ref $enc;
+            }
             $output
                 .= sprintf "<span weight=\"bold\">From</span>: %s, "
                 . "<span weight=\"bold\">Subject</span>: %s\n",
-                escape_html(decode('MIME-Header', $message->{From})),
-                escape_html(decode('MIME-Header', $message->{Subject}));
+                escape_html(
+                  $encoding ? decode($encoding, $message->{From})
+                : $message->{From}),
+                escape_html(
+                  $encoding ? decode($encoding, $message->{Subject})
+                : $message->{Subject});
         }
         $output .= "\n";
     }
@@ -70,12 +85,16 @@ for (@{ $conf->{accounts} }) {
     if ($unseen_count > 0) {
         my @unseen = $imap->unseen();
         for my $mid (@unseen) {
-            my $data = $imap->parse_headers($mid, 'Subject', 'Date', 'From');
+            my $data = $imap->parse_headers($mid, 'Subject', 'Date', 'From', 'Content-Type');
             push @{ $mail{accounts}{$user}{unseen_messages} },
                 {
                     From    => $data->{From}[0],
                     Subject => $data->{Subject}[0],
                     Date    => $data->{Date}[0],
+                    Charset => (
+                        $data->{'Content-Type'}[0] =~ s/charset="([^"]+)"/$1/
+                            && $data->{'Content-Type'}[0]
+                    ),
                 };
         }
     }
