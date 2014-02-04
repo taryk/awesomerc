@@ -653,6 +653,8 @@ awful.rules.rules = {
       properties = { floating = true,  tag = tags[1][6] } },
     { rule = { class = "psi" },
       properties = { floating = true,  tag = tags[1][6] } },
+    { rule = { class = "XChat" },
+      properties = { floating = true,  tag = tags[1][6] } },
     { rule = { class = "VirtualBox" },
       properties = { floating = true,  tag = tags[1][8] } },
     { rule = { class = "Geeqie" },
