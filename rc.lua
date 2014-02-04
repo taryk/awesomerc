@@ -266,7 +266,8 @@ mytextclock = awful.widget.textclock({ align = "right" }, " <b>%A %Y.%m.%d %H:%M
 orglendar.files = { "/home/taryk/Documents/org/toread.org",
                     "/home/taryk/Documents/org/2012.org",
                     "/home/taryk/Documents/org/home.org",
-                    "/home/taryk/Documents/org/development.org" }    -- Specify here all files you want to be parsed, separated by
+                    "/home/taryk/Documents/org/development.org",
+                    "/home/taryk/Documents/org/coursera.org" }    -- Specify here all files you want to be parsed, separated by
 orglendar.register(mytextclock)
 
 -- -- {{{ PROCESSOR
