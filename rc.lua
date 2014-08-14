@@ -639,7 +639,7 @@ awful.rules.rules = {
       properties = { floating = false, tag = tags[2][4] } },
     { rule = { class = "Thunderbird" },
       properties = { floating = false, tag = tags[2][2] } },
-    { rule = { class = "Chromium" },
+    { rule = { class = "google-chrome" },
       properties = { floating = false, tag = tags[2][6] } },
     { rule = { class = "Firefox" },
       properties = { floating = false, tag = tags[2][6] } },
@@ -656,6 +656,8 @@ awful.rules.rules = {
     { rule = { class = "Kopete" },
       properties = { floating = true,  tag = tags[2][5] } },
     { rule = { class = "psi" },
+      properties = { floating = true,  tag = tags[2][5] } },
+    { rule = { class = "xchat" },
       properties = { floating = true,  tag = tags[2][5] } },
     { rule = { class = "qwit" },
       properties = { floating = true,  tag = tags[2][6] } },
@@ -732,7 +734,7 @@ do
   local cmds = 
   { 
     "urxvt",
-    "chromium-browser",
+    "google-chrome",
     "thunderbird",
     "emacs24",
     "clementine",
@@ -756,12 +758,5 @@ do
   end
 end
 
---os.execute("urxvt &")
---os.execute("chromium-browser &")
---os.execute("thunderbird &")
---os.execute("emacs &")
-
---os.execute("skype &")
---os.execute("kopete &")
 --}}}
 
