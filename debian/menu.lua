@@ -20,6 +20,9 @@ Debian_menu["Debian_Applications_Editors"] = {
 	{"Nano", "x-terminal-emulator -e ".."/bin/nano","/usr/share/nano/nano-menu.xpm"},
 	{"Xedit","xedit"},
 }
+Debian_menu["Ubuntu_System"] = {
+	{"Control Center","/usr/bin/unity-control-center"},
+}
 Debian_menu["Debian_Applications_Emulators"] = {
 	{"VirtualBox","/usr/bin/virtualbox","/usr/share/pixmaps/virtualbox.xpm"},
 }
