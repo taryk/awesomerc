@@ -13,8 +13,8 @@ Debian_menu["Debian_Applications_Data_Management"] = {
 	{"Tomboy","/usr/bin/tomboy"},
 }
 Debian_menu["Debian_Applications_Editors"] = {
-	{"Emacs 23 (text)", "x-terminal-emulator -e ".."/usr/bin/emacs23 -nw"},
-	{"Emacs 23 (X11)","/usr/bin/emacs23"},
+	{"Emacs 24 (text)", "x-terminal-emulator -e ".."/usr/bin/emacs24 -nw"},
+	{"Emacs 24 (X11)","/usr/bin/emacs24"},
 	{"Gedit","/usr/bin/gedit","/usr/share/pixmaps/gedit-icon.xpm"},
 	{"GVIM","/usr/bin/vim.gtk -g -f","/usr/share/pixmaps/vim-32.xpm"},
 	{"Nano", "x-terminal-emulator -e ".."/bin/nano","/usr/share/nano/nano-menu.xpm"},
