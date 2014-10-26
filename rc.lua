@@ -289,23 +289,12 @@ orglendar.register(mytextclock)
 -- -- cpu graph
 
 -- CPU usage
-cpu_total = { 0, 0, 0, 0, 0, 0, 0, 0 }
-cpu_active = { 0, 0, 0, 0, 0, 0, 0, 0 }
-cpugraphwidget = { 0, 0, 0, 0, 0, 0, 0, 0 }
 
-for cpun = 1, 8 do
-  cpugraphwidget[cpun] = awful.widget.graph()
-  cpugraphwidget[cpun]:set_width(60)
-  cpugraphwidget[cpun]:set_height(18)
-  cpugraphwidget[cpun]:set_max_value(100)
-  -- cpugraphwidget[cpun]:set_background_color(beautiful.bg_normal)
-  cpugraphwidget[cpun]:set_background_color("#494B4F")
-  -- cpugraphwidget[cpun]:set_border_color(beautiful.fg_urgent)
-  cpugraphwidget[cpun]:set_border_color("#3A3C3F")
-  cpugraphwidget[cpun]:set_gradient_colors({ "red", "cyan" })
-  cpugraphwidget[cpun]:set_gradient_angle(90)
-end
+cpu_total = {}
+cpu_active = {}
+cpugraphwidget = {}
 
+cpuInfoInit()
 cpuInfo()
 
 -- memwidget = widget({ type = "textbox" })
@@ -436,31 +425,25 @@ for s = 1, screen.count() do
         layout = awful.widget.layout.horizontal.rightleft
     }
 
-    mywibox2[s] = awful.wibox({ position = "bottom", height = "18", screen = s })
-    mywibox2[s].widgets = {
+    mywibox2[s] = awful.wibox({ position = "bottom", height = "18", screen = s }) 
+
+    --- Bottom panel
+    bottom_widgets = {}
+    -- CPU cores usage
+    for cpun = getCpuCount(), 1, -1 do
+       table.insert(bottom_widgets, cpugraphwidget[cpun].widget)
+       table.insert(bottom_widgets, pspacer)
+    end
+    bottom_widgets.layout=awful.widget.layout.horizontal.rightleft
+    -- Disk usage
+    table.insert(
+       bottom_widgets, 1,
        {
-         -- memwidget,
-         -- pseparator,
-         fswidget,
-         layout = awful.widget.layout.horizontal.leftright
-       },
-       cpugraphwidget[8].widget,
-       pspacer,
-       cpugraphwidget[7].widget,
-       pspacer,
-       cpugraphwidget[6].widget,
-       pspacer,
-       cpugraphwidget[5].widget,
-       pspacer,
-       cpugraphwidget[4].widget,
-       pspacer,
-       cpugraphwidget[3].widget,
-       pspacer,
-       cpugraphwidget[2].widget,
-       pspacer,
-       cpugraphwidget[1].widget,
-       layout = awful.widget.layout.horizontal.rightleft
-    }
+          fswidget,
+          layout = awful.widget.layout.horizontal.leftright,
+       }
+    )
+    mywibox2[s].widgets = bottom_widgets
 end
 -- }}}
 

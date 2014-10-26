@@ -219,6 +219,30 @@ function fsUsage()
 
 end
 
+function getCpuCount()
+   local f = io.popen("cat /proc/stat | grep -P 'cpu\\d+' | wc -l")
+   cpus = f:read()
+   f:close()
+
+   return cpus
+end
+
+function cpuInfoInit()
+   for cpun = 1, getCpuCount() do
+      cpu_total[cpun]  = 0
+      cpu_active[cpun] = 0
+      cpugraphwidget[cpun] = awful.widget.graph()
+      cpugraphwidget[cpun]:set_width(60)
+      cpugraphwidget[cpun]:set_height(18)
+      cpugraphwidget[cpun]:set_max_value(100)
+      -- cpugraphwidget[cpun]:set_background_color(beautiful.bg_normal)
+      cpugraphwidget[cpun]:set_background_color("#494B4F")
+      -- cpugraphwidget[cpun]:set_border_color(beautiful.fg_urgent)
+      cpugraphwidget[cpun]:set_border_color("#3A3C3F")
+      cpugraphwidget[cpun]:set_gradient_colors({ "red", "cyan" })
+      cpugraphwidget[cpun]:set_gradient_angle(90)
+   end   
+end
 
 function cpuInfo()
    -- Return CPU usage percentage
