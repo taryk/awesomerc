@@ -22,7 +22,7 @@ loadfile(awful.util.getdir("config").."/mygmail.lua")()
 
 -- {{{ Variable definitions
 -- Themes define colours, icons, and wallpapers
-beautiful.init("/home/taryk/.config/awesome/theme.lua")
+beautiful.init(os.getenv("HOME").."/.config/awesome/theme.lua")
 
 -- This is used later as the default terminal and editor to run.
 terminal = "urxvt"
@@ -141,7 +141,7 @@ mygmail_widget = widget({ type = "textbox" })
 gmail_t = awful.tooltip({ objects = { mygmail_widget },})
 
 mygmail_img = widget({ type = "imagebox" })
-mygmail_img.image = image("/home/taryk/.config/awesome/icons/gmail_icon_18x.png")
+mygmail_img.image = image(os.getenv("HOME").."/.config/awesome/icons/gmail_icon_18x.png")
 
 vicious.register(mygmail_widget, mygmail,
                 function (widget, args)
@@ -263,11 +263,11 @@ vicious.register(netwidget, vicious.widgets.net,
 -- Create a textclock widget
 mytextclock = awful.widget.textclock({ align = "right" }, " <b>%A %Y.%m.%d %H:%M:%S</b> ", 1)
 
-orglendar.files = { "/home/taryk/Documents/org/toread.org",
-                    "/home/taryk/Documents/org/2012.org",
-                    "/home/taryk/Documents/org/home.org",
-                    "/home/taryk/Documents/org/development.org",
-                    "/home/taryk/Documents/org/coursera.org" }    -- Specify here all files you want to be parsed, separated by
+orglendar.files = { os.getenv("HOME").."/Documents/org/toread.org",
+                    os.getenv("HOME").."/Documents/org/2012.org",
+                    os.getenv("HOME").."/Documents/org/home.org",
+                    os.getenv("HOME").."/Documents/org/development.org",
+                    os.getenv("HOME").."/Documents/org/coursera.org" }    -- Specify here all files you want to be parsed, separated by
 orglendar.register(mytextclock)
 
 -- -- {{{ PROCESSOR
