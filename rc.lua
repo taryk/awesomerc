@@ -22,7 +22,7 @@ loadfile(awful.util.getdir("config").."/mygmail.lua")()
 
 -- {{{ Variable definitions
 -- Themes define colours, icons, and wallpapers
-beautiful.init(os.getenv("HOME").."/.config/awesome/theme.lua")
+beautiful.init(awful.util.getdir("config").."/theme.lua")
 
 -- This is used later as the default terminal and editor to run.
 terminal = "urxvt"
@@ -141,7 +141,7 @@ mygmail_widget = widget({ type = "textbox" })
 gmail_t = awful.tooltip({ objects = { mygmail_widget },})
 
 mygmail_img = widget({ type = "imagebox" })
-mygmail_img.image = image(os.getenv("HOME").."/.config/awesome/icons/gmail_icon_18x.png")
+mygmail_img.image = image(awful.util.getdir("config").."/icons/gmail_icon_18x.png")
 
 vicious.register(mygmail_widget, mygmail,
                 function (widget, args)
