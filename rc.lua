@@ -78,9 +78,16 @@ layouts =
 -- {{{ Tags
 -- Define a tag table which will hold all screen tags.
 tags = {
-  names  = { "1:skype", "2:email", "3:www", "4:emacs", "5:term", "6:im", 7, "8:audio", "9:video" },
-  layout = { layouts[1], layouts[1], layouts[1], layouts[1], layouts[3],
-             layouts[1], layouts[1], layouts[1], layouts[1]
+  names  = { "1:skype", "2:im", "3:www", "4:emacs", "5:term", "6:email", "7:music", "8:other" },
+  layout = {
+     layouts[1], -- 1
+     layouts[1], -- 2
+     layouts[1], -- 3
+     layouts[1], -- 4
+     layouts[3], -- 5
+     layouts[1], -- 6
+     layouts[1], -- 7
+     layouts[1], -- 8
 }}
 for s = 1, screen.count() do
     -- Each screen has its own tag table.
@@ -629,9 +636,9 @@ awful.rules.rules = {
                      floating = true,
                      buttons = clientbuttons } },
     { rule = { class = "Smplayer" },
-      properties = { floating = true, tag = tags[1][9] } },
+      properties = { floating = true, tag = tags[1][8] } },
     { rule = { class = "mplayer" },
-      properties = { floating = true, tag = tags[1][9] } },
+      properties = { floating = true, tag = tags[1][8] } },
     { rule = { class = "pinentry" },
       properties = { floating = true } },
     { rule = { class = "Gimp" },
@@ -639,40 +646,37 @@ awful.rules.rules = {
     { rule = { class = "Rxvt" },
       properties = { floating = false, tag = tags[1][5] } },
     { rule = { class = "Thunderbird" },
-      properties = { floating = false, tag = tags[1][2] } },
+      properties = { floating = true, tag = tags[1][6] } },
     { rule = { class = "Chromium" },
-      properties = { floating = false, tag = tags[1][3] } },
+      properties = { floating = true, tag = tags[1][3] } },
+    { rule = { class = "google-chrome" },
+      properties = { floating = true, tag = tags[1][3] } },
+    { rule = { class = "Firefox" },
+      properties = { floating = true, tag = tags[1][3] } },
     { rule = { class = "Skype" },
       properties = { floating = true,  tag = tags[1][1] } },
     { rule = { class = "Emacs" },
       properties = { floating = false, tag = tags[1][4] } },
     { rule = { class = "Clementine" },
-      properties = { floating = false, tag = tags[1][8] } },
+      properties = { floating = false, tag = tags[1][7] } },
     { rule = { class = "Gmpc" },
-      properties = { floating = false, tag = tags[1][8] } },
+      properties = { floating = false, tag = tags[1][7] } },
     { rule = { class = "Kopete" },
-      properties = { floating = true,  tag = tags[1][6] } },
+      properties = { floating = true,  tag = tags[1][2] } },
     { rule = { class = "psi" },
-      properties = { floating = true,  tag = tags[1][6] } },
-    { rule = { class = "XChat" },
-      properties = { floating = true,  tag = tags[1][6] } },
+      properties = { floating = true,  tag = tags[1][2] } },
+    { rule = { class = "Xchat" },
+      properties = { floating = true,  tag = tags[1][2] } },
     { rule = { class = "VirtualBox" },
       properties = { floating = true,  tag = tags[1][8] } },
     { rule = { class = "Geeqie" },
-      properties = { floating = false, tag = tags[1][7] } },
+      properties = { floating = false, tag = tags[1][8] } },
     { rule = { class = "Okular" },
-      properties = { floating = false, tag = tags[1][6] } },
+      properties = { floating = false, tag = tags[1][8] } },
     { rule = { class = "Evince" },
-      properties = { floating = false, tag = tags[1][6] } },
+      properties = { floating = false, tag = tags[1][8] } },
     { rule = { class = "Eclipse" },
       properties = { floating = false, tag = tags[1][4] } },
---    { rule = { class = "Gqview" },
---      properties = { floating = false, tag = tags[1][7] } },
---    { rule = { class = "Gqview" },
---      properties = { floating = true, tag = tags[1][7] } },
-    -- Set Firefox to always map on tags number 2 of screen 1.
-    -- { rule = { class = "Firefox" },
-    --   properties = { tag = tags[1][2] } },
 }
 -- }}}
 
@@ -759,11 +763,5 @@ do
 end
 
 --os.execute("urxvt &")
---os.execute("chromium-browser &")
---os.execute("thunderbird &")
---os.execute("emacs &")
-
---os.execute("skype &")
---os.execute("kopete &")
 --}}}
 
