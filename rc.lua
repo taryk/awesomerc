@@ -13,6 +13,9 @@ require("vicious")
 -- Load Debian menu entries
 require("debian.menu")
 
+-- Load LuaFileSystem
+require("lfs")
+
 -- orglendar
 --require('orglendar')
 loadfile(awful.util.getdir("config").."/functions.lua")()
@@ -270,11 +273,16 @@ vicious.register(netwidget, vicious.widgets.net,
 -- Create a textclock widget
 mytextclock = awful.widget.textclock({ align = "right" }, " <b>%A %Y.%m.%d %H:%M:%S</b> ", 1)
 
-orglendar.files = { os.getenv("HOME").."/Documents/org/toread.org",
-                    os.getenv("HOME").."/Documents/org/2012.org",
-                    os.getenv("HOME").."/Documents/org/home.org",
-                    os.getenv("HOME").."/Documents/org/development.org",
-                    os.getenv("HOME").."/Documents/org/coursera.org" }    -- Specify here all files you want to be parsed, separated by
+orglendar.files = { }
+
+-- 
+local orgfiles_dir = os.getenv("HOME") .. "/Documents/org/"
+for org_file in lfs.dir(orgfiles_dir) do
+   if string.match(org_file, "\.org$") then
+      table.insert(orglendar.files, orgfiles_dir .. org_file)
+   end
+end
+
 orglendar.register(mytextclock)
 
 -- -- {{{ PROCESSOR
