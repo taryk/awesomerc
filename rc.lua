@@ -80,22 +80,44 @@ layouts =
 
 -- {{{ Tags
 -- Define a tag table which will hold all screen tags.
-tags = {
-  names  = { "1:skype", "2:im", "3:www", "4:emacs", "5:term", "6:email", "7:music", "8:other" },
-  layout = {
-     layouts[1], -- 1
-     layouts[1], -- 2
-     layouts[1], -- 3
-     layouts[1], -- 4
-     layouts[3], -- 5
-     layouts[1], -- 6
-     layouts[1], -- 7
-     layouts[1], -- 8
-}}
-for s = 1, screen.count() do
-    -- Each screen has its own tag table.
-    tags[s] = awful.tag(tags.names, s, tags.layout)
-    --tag.add_signal("property::selected", function(t)
+-- Each screen has its own tag table.
+if screen.count() == 1 then
+
+   tags = {
+      names  = { "1:skype","2:im","3:www","4:emacs","5:term","6:email","7:music","8:other" },
+      layout = {
+         layouts[1], -- 1
+         layouts[1], -- 2
+         layouts[1], -- 3
+         layouts[1], -- 4
+         layouts[3], -- 5
+         layouts[1], -- 6
+         layouts[1], -- 7
+         layouts[1], -- 8
+      }
+   }
+
+   tags[1] = awful.tag(tags.names, 1, tags.layout)
+
+elseif screen.count() == 2 then
+
+   tagn = {
+      { names  = { "1:term", "2:www", "3:", "4:", "5:", "6:", "7:", "8:", "9:" },
+        layout = { layouts[3], layouts[1], layouts[1], layouts[1], layouts[1],
+                   layouts[1], layouts[1], layouts[1], layouts[1] } },
+
+      { names  = { "1:skype", "2:email", "3:emacs", "4:term", "5:im", "6:www", "7:audio", "8:" },
+        layout = { layouts[1], layouts[1], layouts[1], layouts[3], layouts[1],
+                   layouts[1], layouts[1], layouts[1], layouts[1] } }
+   }
+
+   tags = {}
+
+   for s = 1, 2 do
+      -- Each screen has its own tag table.
+      tags[s] = awful.tag(tagn[s].names, s, tagn[s].layout)
+      --tag.add_signal("property::selected", function(t)
+   end
 end
 
 --    screen[1]:add_signal("tag::history::update", function()
@@ -616,59 +638,120 @@ clientbuttons = awful.util.table.join(
 root.keys(globalkeys)
 -- }}}
 
--- {{{ Rules
-awful.rules.rules = {
-    -- All clients will match this rule.
-    { rule = { },
-      properties = { border_width = beautiful.border_width,
-                     border_color = beautiful.border_normal,
-                     focus = true,
-                     keys = clientkeys,
-                     floating = true,
-                     buttons = clientbuttons } },
-    { rule = { class = "Smplayer" },
-      properties = { floating = true, tag = tags[1][8] } },
-    { rule = { class = "mplayer" },
-      properties = { floating = true, tag = tags[1][8] } },
-    { rule = { class = "pinentry" },
-      properties = { floating = true } },
-    { rule = { class = "Gimp" },
-      properties = { floating = true } },
-    { rule = { class = "Rxvt" },
-      properties = { floating = false, tag = tags[1][5] } },
-    { rule = { class = "Thunderbird" },
-      properties = { floating = true, tag = tags[1][6] } },
-    { rule = { class = "Chromium" },
-      properties = { floating = true, tag = tags[1][3] } },
-    { rule = { class = "google-chrome" },
-      properties = { floating = true, tag = tags[1][3] } },
-    { rule = { class = "Firefox" },
-      properties = { floating = true, tag = tags[1][3] } },
-    { rule = { class = "Skype" },
-      properties = { floating = true,  tag = tags[1][1] } },
-    { rule = { class = "Emacs" },
-      properties = { floating = false, tag = tags[1][4] } },
-    { rule = { class = "Clementine" },
-      properties = { floating = false, tag = tags[1][7] } },
-    { rule = { class = "Gmpc" },
-      properties = { floating = false, tag = tags[1][7] } },
-    { rule = { class = "Kopete" },
-      properties = { floating = true,  tag = tags[1][2] } },
-    { rule = { class = "psi" },
-      properties = { floating = true,  tag = tags[1][2] } },
-    { rule = { class = "Xchat" },
-      properties = { floating = true,  tag = tags[1][2] } },
-    { rule = { class = "VirtualBox" },
-      properties = { floating = true,  tag = tags[1][8] } },
-    { rule = { class = "Geeqie" },
-      properties = { floating = false, tag = tags[1][8] } },
-    { rule = { class = "Okular" },
-      properties = { floating = false, tag = tags[1][8] } },
-    { rule = { class = "Evince" },
-      properties = { floating = false, tag = tags[1][8] } },
-    { rule = { class = "Eclipse" },
-      properties = { floating = false, tag = tags[1][4] } },
-}
+if screen.count() == 1 then
+   -- {{{ Rules
+   awful.rules.rules = {
+       -- All clients will match this rule.
+       { rule = { },
+         properties = { border_width = beautiful.border_width,
+                        border_color = beautiful.border_normal,
+                        focus = true,
+                        keys = clientkeys,
+                        floating = true,
+                        buttons = clientbuttons } },
+       { rule = { class = "Smplayer" },
+         properties = { floating = true, tag = tags[1][8] } },
+       { rule = { class = "mplayer" },
+         properties = { floating = true, tag = tags[1][8] } },
+       { rule = { class = "pinentry" },
+         properties = { floating = true } },
+       { rule = { class = "Gimp" },
+         properties = { floating = true } },
+       { rule = { class = "Rxvt" },
+         properties = { floating = false, tag = tags[1][5] } },
+       { rule = { class = "Thunderbird" },
+         properties = { floating = true, tag = tags[1][6] } },
+       { rule = { class = "Chromium" },
+         properties = { floating = true, tag = tags[1][3] } },
+       { rule = { class = "google-chrome" },
+         properties = { floating = true, tag = tags[1][3] } },
+       { rule = { class = "Firefox" },
+         properties = { floating = true, tag = tags[1][3] } },
+       { rule = { class = "Skype" },
+         properties = { floating = true,  tag = tags[1][1] } },
+       { rule = { class = "Emacs" },
+         properties = { floating = false, tag = tags[1][4] } },
+       { rule = { class = "Clementine" },
+         properties = { floating = false, tag = tags[1][7] } },
+       { rule = { class = "Gmpc" },
+         properties = { floating = false, tag = tags[1][7] } },
+       { rule = { class = "Kopete" },
+         properties = { floating = true,  tag = tags[1][2] } },
+       { rule = { class = "psi" },
+         properties = { floating = true,  tag = tags[1][2] } },
+       { rule = { class = "Xchat" },
+         properties = { floating = true,  tag = tags[1][2] } },
+       { rule = { class = "VirtualBox" },
+         properties = { floating = true,  tag = tags[1][8] } },
+       { rule = { class = "Geeqie" },
+         properties = { floating = false, tag = tags[1][8] } },
+       { rule = { class = "Okular" },
+         properties = { floating = false, tag = tags[1][8] } },
+       { rule = { class = "Evince" },
+         properties = { floating = false, tag = tags[1][8] } },
+       { rule = { class = "Eclipse" },
+         properties = { floating = false, tag = tags[1][4] } },
+   }
+elseif screen.count() == 2 then
+      -- {{{ Rules
+   awful.rules.rules = {
+       -- All clients will match this rule.
+       { rule = { },
+         properties = { border_width = beautiful.border_width,
+                        border_color = beautiful.border_normal,
+                        focus = true,
+                        keys = clientkeys,
+                        floating = true,
+                        buttons = clientbuttons } },
+       { rule = { class = "Smplayer" },
+         properties = { floating = true, tag = tags[2][9] } },
+       { rule = { class = "mplayer" },
+         properties = { floating = true, tag = tags[2][9] } },
+       { rule = { class = "pinentry" },
+         properties = { floating = true } },
+       { rule = { class = "Gimp" },
+         properties = { floating = true } },
+       { rule = { class = "Rxvt" },
+         properties = { floating = false, tag = tags[2][4] } },
+       { rule = { class = "Thunderbird" },
+         properties = { floating = false, tag = tags[2][2] } },
+       { rule = { class = "Chromium" },
+         properties = { floating = true, tag = tags[2][6] } },
+       { rule = { class = "google-chrome" },
+         properties = { floating = true, tag = tags[2][6] } },
+       { rule = { class = "Firefox" },
+         properties = { floating = false, tag = tags[2][6] } },
+       { rule = { class = "DictLearn" },
+         properties = { floating = false, tag = tags[2][6] } },
+       { rule = { class = "Skype" },
+         properties = { floating = true,  tag = tags[2][1] } },
+       { rule = { class = "Emacs" },
+         properties = { floating = false, tag = tags[1][2] } },
+       { rule = { class = "Clementine" },
+         properties = { floating = false, tag = tags[2][7] } },
+       { rule = { class = "Gmpc" },
+         properties = { floating = false, tag = tags[2][7] } },
+       { rule = { class = "Kopete" },
+         properties = { floating = true,  tag = tags[2][5] } },
+       { rule = { class = "psi" },
+         properties = { floating = true,  tag = tags[2][5] } },
+       { rule = { class = "Xchat" },
+         properties = { floating = true,  tag = tags[2][5] } },
+       { rule = { class = "qwit" },
+         properties = { floating = true,  tag = tags[2][6] } },
+       { rule = { class = "VirtualBox" },
+         properties = { floating = true,  tag = tags[2][8] } },
+       { rule = { class = "Geeqie" },
+         properties = { floating = false, tag = tags[2][7] } },
+       { rule = { class = "Eclipse" },
+         properties = { floating = false, tag = tags[2][4] } },
+       { rule = { class = "Okular" },
+         properties = { floating = false, tag = tags[2][6] } },
+       { rule = { class = "Evince" },
+         properties = { floating = false, tag = tags[2][6] } },
+   }
+   -- }}}
+end
 -- }}}
 
 -- {{{ Signals
