@@ -76,11 +76,7 @@ theme.titlebar_maximized_button_focus_active  = "/usr/share/awesome/themes/defau
 
 -- You can use your own command to set your wallpaper
 -- theme.wallpaper_cmd = { "awsetbg /usr/share/awesome/themes/default/background.png" }
--- theme.wallpaper_cmd = { "awsetbg /home/taryk/Pictures/backgrounds/1350057390737.jpg" }
 theme.wallpaper_cmd = { "awsetbg " .. os.getenv("HOME") .. "/Pictures/backgrounds/books_old_high_resolution_image_desktop_1680x1050_hd-wallpaper-77258.jpg" }
--- theme.wallpaper_cmd = { "awsetbg /home/taryk/Pictures/backgrounds/3737494+_a0fab6867baded7e85ccc27c4c9caa1c.jpg" }
--- theme.wallpaper_cmd = { "awsetbg /home/taryk/Pictures/backgrounds/3737494+_b11d535f0ebee805fe4314b27609ca7a.jpg" }
--- theme.wallpaper_cmd = { "awsetbg /home/taryk/Pictures/backgrounds/colorful_wallpaper1680x1050.jpg" }
 
 -- You can use your own layout icons like this:
 theme.layout_fairh = "/usr/share/awesome/themes/default/layouts/fairhw.png"
