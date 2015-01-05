@@ -560,13 +560,9 @@ globalkeys = awful.util.table.join(
                                        awful.util.spawn("clementine -t")
                                     end),
                                              volumecfg.up()
-                                             --awful.util.spawn("amixer set Master 2%+") 
-                                             --awful.util.spawn("/home/taryk/bin/mixer_notify inc")
                                           end),
    awful.key({ }, "XF86AudioLowerVolume", function () 
                                              volumecfg.down()
-                                             --awful.util.spawn("amixer set Master 2%-") 
-                                             --awful.util.spawn("/home/taryk/bin/mixer_notify dec")
                                           end),
    awful.key({ }, "XF86AudioMute", function () 
                                       volumecfg.toggle()
