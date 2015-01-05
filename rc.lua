@@ -546,7 +546,6 @@ globalkeys = awful.util.table.join(
                   end)
               end),
    -- Media keys
-   awful.key({ }, "XF86AudioRaiseVolume", function () 
    awful.key({ }, "XF86AudioNext",  function ()
                                        awful.util.spawn("clementine -f")
                                     end),
@@ -559,9 +558,10 @@ globalkeys = awful.util.table.join(
    awful.key({ }, "XF86AudioPlay",  function ()
                                        awful.util.spawn("clementine -t")
                                     end),
+   awful.key({ }, "XF86AudioRaiseVolume", function ()
                                              volumecfg.up()
                                           end),
-   awful.key({ }, "XF86AudioLowerVolume", function () 
+   awful.key({ }, "XF86AudioLowerVolume", function ()
                                              volumecfg.down()
                                           end),
    awful.key({ }, "XF86AudioMute", function () 
