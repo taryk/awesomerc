@@ -546,11 +546,19 @@ globalkeys = awful.util.table.join(
                   end)
               end),
    -- Media keys
-   -- awful.key({ }, "XF86AudioNext",  musicwidget:command_next_track()),
-   -- awful.key({ }, "XF86AudioPrev",  musicwidget:command_prev_track()), 
-   -- awful.key({ }, "XF86AudioStop",  musicwidget:command_stop()), 
-   -- awful.key({ }, "XF86AudioPlay",  musicwidget:command_playpause()),
    awful.key({ }, "XF86AudioRaiseVolume", function () 
+   awful.key({ }, "XF86AudioNext",  function ()
+                                       awful.util.spawn("clementine -f")
+                                    end),
+   awful.key({ }, "XF86AudioPrev",  function ()
+                                       awful.util.spawn("clementine -r")
+                                    end),
+   awful.key({ }, "XF86AudioStop",  function ()
+                                       awful.util.spawn("clementine -s")
+                                    end),
+   awful.key({ }, "XF86AudioPlay",  function ()
+                                       awful.util.spawn("clementine -t")
+                                    end),
                                              volumecfg.up()
                                              --awful.util.spawn("amixer set Master 2%+") 
                                              --awful.util.spawn("/home/taryk/bin/mixer_notify inc")
