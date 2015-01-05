@@ -231,7 +231,7 @@ kbdcfg.widget:buttons(awful.util.table.join(
 -- Volume widget
 
 volumecfg = {}
-volumecfg.cardid  = 0
+volumecfg.cardid  = 1
 volumecfg.channel = "Master"
 volumecfg.widget = widget({ type = "textbox", name = "volumecfg.widget", align = "right" })
 
