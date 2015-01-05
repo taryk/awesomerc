@@ -255,16 +255,16 @@ volumecfg.mixercommand = function (command)
        volumecfg.widget.text = volume
 end
 volumecfg.update = function ()
-       volumecfg.mixercommand(" sget " .. volumecfg.channel)
+       volumecfg.mixercommand(" -D pulse sget " .. volumecfg.channel)
 end
 volumecfg.up = function ()
-       volumecfg.mixercommand(" sset " .. volumecfg.channel .. " 1%+")
+       volumecfg.mixercommand(" -D pulse set " .. volumecfg.channel .. " 1000+ unmute")
 end
 volumecfg.down = function ()
-       volumecfg.mixercommand(" sset " .. volumecfg.channel .. " 1%-")
+       volumecfg.mixercommand(" -D pulse set " .. volumecfg.channel .. " 1000- unmute")
 end
 volumecfg.toggle = function ()
-       volumecfg.mixercommand(" sset " .. volumecfg.channel .. " toggle")
+       volumecfg.mixercommand(" -D pulse set " .. volumecfg.channel .. " toggle")
 end
 volumecfg.widget:buttons({
        button({ }, 4, function () volumecfg.up() end),
